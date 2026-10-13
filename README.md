@@ -84,3 +84,9 @@ GeneScope/
 ## Notes and limits
 
 This is an educational project, not a clinical tool. Translation starts at the first base and stops at the first stop codon; it does not determine the correct biological reading frame. ORFs are candidates, not confirmed genes. Sequence comparison is positional and requires equal-length inputs. FASTA files must contain a single record.
+
+## Deploy as a live website
+
+The repository includes `render.yaml` for deployment on Render. Push the project to GitHub, then in Render choose **New** → **Blueprint**, connect the repository, and let Render use the blueprint configuration. It installs the dependencies from `requirements.txt` and starts the Flask app with Gunicorn. Render will provide a public `onrender.com` URL when deployment finishes.
+
+You can also create a Web Service manually with build command `pip install -r requirements.txt` and start command `gunicorn app:app`.
