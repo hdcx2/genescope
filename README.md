@@ -46,7 +46,7 @@ python -m pip install -r requirements.txt
 python app.py
 ```
 
-Open <http://127.0.0.1:5000> and leave the terminal running while you use the site. Stop the server with `Ctrl+C`.
+Live Website: <a>https://genescope-9o6z.onrender.com</a>
 
 ## Command-line analyzer
 
