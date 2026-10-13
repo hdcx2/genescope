@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#070d16"><meta name="description" content="GeneScope is an educational DNA sequence analysis toolkit."><title>GeneScope — DNA, base by base</title><link rel="stylesheet" href="../static/style.css"><script src="../static/app.js" defer></script>
+  </head>
+  <body>
+    <div class="ambient ambient-one">
+    </div>
+    <div class="ambient ambient-two">
+    </div>
+    <header class="topbar" id="top"><a class="brand" href="#top" aria-label="GeneScope home">
+      <span class="brand-mark">G<span>✳</span></span>
+      <span>GENE<span class="teal">SCOPE</span><small>DNA SEQUENCE ANALYZER</small></span>
+    </a>
+      <div class="topbar-right"><span class="status-dot"></span><span>READY</span><span class="version">LOCAL APP</span>
+      </div>
+    </header>
+    <main class="shell">
+      <section class="hero">
+        <div class="hero-content">
+          <div class="eyebrow"><span class="eyebrow-line"></span> DNA ANALYSIS
+          </div>
+          <h1>DNA, <span>base by base.</span>
+          </h1>
+          <p class="hero-copy">Check base composition, find motifs, compare sequences, and scan for possible reading frames.
+          </p>
+          <div class="hero-tags"><span>BASE COUNTS</span><span>MOTIFS</span><span>READING FRAMES</span>
+          </div>
+        </div>
+        <aside class="hero-visual" aria-label="Animated DNA double helix illustration">
+          <div class="helix-card-top"><span><i class="status-dot"></i> DNA STRUCTURE</span><span>ATCG</span>
+          </div>
+          <svg class="helix-art" viewBox="0 0 300 220" role="img" aria-label="A glowing DNA double helix">
+            <defs><linearGradient id="helixA" x1="0" x2="1"><stop stop-color="#39f0cf" stop-opacity=".2" /><stop offset=".5" stop-color="#39f0cf" /><stop offset="1" stop-color="#39f0cf" stop-opacity=".2" /></linearGradient><linearGradient id="helixB" x1="0" x2="1"><stop stop-color="#7299ff" stop-opacity=".2" /><stop offset=".5" stop-color="#7299ff" /><stop offset="1" stop-color="#7299ff" stop-opacity=".2" /></linearGradient>
+            </defs><path class="helix-strand strand-a" d="M70 12 C230 38 230 72 70 98 C-10 111 -10 143 70 156 C230 182 230 204 70 216" fill="none" stroke="url(#helixA)" stroke-width="4" /><path class="helix-strand strand-b" d="M230 12 C70 38 70 72 230 98 C310 111 310 143 230 156 C70 182 70 204 230 216" fill="none" stroke="url(#helixB)" stroke-width="4" />
+            <g class="helix-rungs" stroke="#7edfd2" stroke-width="1.5"><path d="M91 20 L209 20" /><path d="M131 37 L169 37" /><path d="M175 54 L125 54" /><path d="M193 71 L107 71" /><path d="M164 88 L136 88" /><path d="M112 105 L188 105" /><path d="M91 122 L209 122" /><path d="M119 139 L181 139" /><path d="M169 156 L131 156" /><path d="M203 173 L97 173" /><path d="M176 190 L124 190" /><path d="M111 207 L189 207" />
+            </g>
+            <g fill="#c6fff5"><circle cx="91" cy="20" r="3" /><circle cx="209" cy="122" r="3" /><circle cx="97" cy="173" r="3" />
+            </g>
+          </svg>
+          <div class="helix-card-bottom"><span>DOUBLE HELIX</span><span>GENESCOPE</span>
+          </div>
+        </aside>
+      </section>
+      <section class="workspace">
+        <div class="section-heading">
+          <div><span class="section-index">01</span>
+            <h2>Enter a sequence
+            </h2>
+          </div><span class="micro-label">DNA · A / T / C / G</span>
+        </div>
+        <div class="input-card">
+          <div class="input-top"><label for="sequence">YOUR DNA SEQUENCE</label>
+            <div class="input-actions"><label for="fastaFile" class="text-button upload-label">Upload FASTA</label><input id="fastaFile" class="visually-hidden" type="file" accept=".fa,.fasta,.fna,.txt,text/plain" aria-label="Upload a FASTA file"><button id="sampleBtn" class="text-button" type="button">Load sample</button><button id="randomBtn" class="text-button" type="button">Random DNA</button><button id="clearBtn" class="text-button" type="button">Clear</button>
+            </div>
+          </div><textarea id="sequence" spellcheck="false" placeholder="Paste or type DNA…
+Example: ATGAAATAG" aria-describedby="sequenceHelp"></textarea>
+          <div class="input-bottom"><span id="sequenceHelp">Whitespace is ignored. FASTA files with one record are supported.</span><span id="baseCount">0 bases</span>
+          </div>
+          <div id="sequenceError" class="error-message" role="alert" hidden>
+          </div>
+          <div class="primary-row"><button id="analyzeBtn" class="primary-button" type="button"><span>Analyze sequence</span><span>↗</span></button><span class="privacy-note"><span class="tiny-lock">◇</span> Processed by your local app</span>
+          </div>
+        </div>
+      </section>
+      <section id="results" class="results-section" hidden>
+        <div class="section-heading">
+          <div><span class="section-index">02</span>
+            <h2>Sequence results
+            </h2>
+          </div><span class="live-label"><span class="status-dot"></span> READY</span>
+        </div>
+        <div class="metrics-grid">
+          <article class="metric-card"><span class="metric-label">SEQUENCE LENGTH</span><strong id="lengthValue">—</strong><span class="metric-foot">nucleotide bases</span><span class="metric-icon">⌁</span>
+          </article>
+          <article class="metric-card"><span class="metric-label">GC CONTENT</span><strong id="gcValue">—</strong><span class="metric-foot">guanine + cytosine</span><span class="metric-icon">◉</span>
+          </article>
+          <article class="metric-card"><span class="metric-label">A + T CONTENT</span><strong id="atValue">—</strong><span class="metric-foot">adenine + thymine</span><span class="metric-icon">⌬</span>
+          </article>
+        </div>
+        <div class="panel-grid">
+          <article class="panel">
+            <div class="panel-heading">
+              <div><span class="panel-kicker">BASE COMPOSITION</span>
+                <h3>Base percentages
+                </h3>
+              </div><span class="panel-symbol">▥</span>
+            </div>
+            <div id="compositionChart" class="chart-area" aria-label="Nucleotide composition chart">
+            </div>
+            <div id="compositionLegend" class="legend">
+            </div>
+          </article>
+          <article class="panel">
+            <div class="panel-heading">
+              <div><span class="panel-kicker">COUNTS</span>
+                <h3>Base counts
+                </h3>
+              </div><span class="panel-symbol">⌗</span>
+            </div>
+            <div id="baseStats" class="base-stats">
+            </div>
+          </article>
+        </div>
+        <article class="panel strand-panel">
+          <div class="panel-heading">
+            <div><span class="panel-kicker">CONVERSIONS</span>
+              <h3>Complement and translation
+              </h3>
+            </div><span class="panel-symbol">⤨</span>
+          </div>
+          <div class="strand-row">
+            <div><span class="result-label">COMPLEMENT</span><code id="complementValue"></code>
+            </div><button class="copy-button" data-copy="complementValue" type="button">Copy ↗</button>
+          </div>
+          <div class="strand-row">
+            <div><span class="result-label">REVERSE COMPLEMENT</span><code id="reverseValue"></code>
+            </div><button class="copy-button" data-copy="reverseValue" type="button">Copy ↗</button>
+          </div>
+          <div class="strand-row">
+            <div><span class="result-label">RNA TRANSCRIPT</span><code id="rnaValue"></code>
+            </div><button class="copy-button" data-copy="rnaValue" type="button">Copy ↗</button>
+          </div>
+          <div class="strand-row">
+            <div><span class="result-label">PROTEIN TRANSLATION <small>(from the first base)</small></span><code id="proteinValue"></code>
+            </div><button class="copy-button" data-copy="proteinValue" type="button">Copy ↗</button>
+          </div>
+        </article>
+        <div class="section-heading tools-heading">
+          <div><span class="section-index">03</span>
+            <h2>Other tools
+            </h2>
+          </div><span class="micro-label">MOTIFS · GC WINDOWS · ORFS</span>
+        </div>
+        <div class="tools-grid">
+          <article class="panel tool-panel">
+            <div class="panel-heading">
+              <div><span class="panel-kicker">MOTIF SEARCH</span>
+                <h3>Find a pattern
+                </h3>
+              </div><span class="panel-symbol">⌕</span>
+            </div>
+            <p>Search for a short DNA pattern, such as ATG.
+            </p><label for="motifInput" class="field-label">MOTIF</label>
+            <div class="inline-form"><input id="motifInput" value="ATG" maxlength="100" aria-label="Motif sequence"><button id="motifBtn" class="small-button" type="button">Search</button>
+            </div>
+            <div id="motifOutput" class="tool-output muted">Analyze a sequence, then search for a motif.
+            </div>
+          </article>
+          <article class="panel tool-panel">
+            <div class="panel-heading">
+              <div><span class="panel-kicker">GC BY REGION</span>
+                <h3>GC window scan
+                </h3>
+              </div><span class="panel-symbol">⌁</span>
+            </div>
+            <p>See how GC content changes across the sequence.
+            </p>
+            <div class="form-pair">
+              <div><label for="windowInput" class="field-label">WINDOW SIZE</label><input id="windowInput" type="number" min="1" value="10">
+              </div>
+              <div><label for="stepInput" class="field-label">STEP SIZE</label><input id="stepInput" type="number" min="1" value="1">
+              </div>
+            </div><button id="gcBtn" class="small-button full-button" type="button">Plot GC content</button>
+            <div id="gcChart" class="chart-area compact-chart">
+            </div>
+            <div id="gcOutput" class="tool-output muted">
+            </div>
+          </article>
+          <article class="panel tool-panel">
+            <div class="panel-heading">
+              <div><span class="panel-kicker">COMPARE</span>
+                <h3>Compare two sequences
+                </h3>
+              </div><span class="panel-symbol">⇄</span>
+            </div>
+            <p>Compare two sequences of the same length, position by position.
+            </p><label for="compareInput" class="field-label">SECOND SEQUENCE</label><textarea id="compareInput" class="secondary-textarea" rows="2" spellcheck="false" placeholder="Enter a second sequence…"></textarea><button id="compareBtn" class="small-button full-button" type="button">Compare</button>
+            <div id="compareOutput" class="tool-output muted">
+            </div>
+          </article>
+          <article class="panel tool-panel">
+            <div class="panel-heading">
+              <div><span class="panel-kicker">READING FRAMES</span>
+                <h3>Find possible ORFs
+                </h3>
+              </div><span class="panel-symbol">⌘</span>
+            </div>
+            <p>Search both strands for start-to-stop regions.
+            </p><button id="orfBtn" class="small-button full-button" type="button">Find ORFs</button>
+            <div id="orfOutput" class="tool-output muted">ORFs are possible coding regions, not confirmed genes.
+            </div>
+          </article>
+        </div>
+        <div class="export-row">
+          <div><span class="panel-kicker">EXPORT</span>
+            <h3>Save your results
+            </h3>
+            <p>Download the sequence statistics as a CSV file.
+            </p>
+          </div><button id="reportBtn" class="primary-button" type="button"><span>Download CSV</span><span>↓</span></button>
+        </div>
+      </section>
+      <footer>
+        <div class="footer-brand">G<span class="teal">✳</span> GENESCOPE
+        </div><span>DNA sequence analysis for learning</span><span class="footer-note">Not for clinical use</span>
+      </footer>
+    </main>
+    <div id="toast" class="toast" role="status" aria-live="polite">
+    </div>
+  </body>
+</html>
